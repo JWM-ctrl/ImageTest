@@ -53,7 +53,6 @@ public class PhotoService {
     public void deletePhoto(long id) {
         photoRepository.deleteById(id);
 
-        //аутентификация спринг секюрити (Base Auth)
-        //тесты Unit
+
     }
 }

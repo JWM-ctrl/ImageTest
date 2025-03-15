@@ -32,5 +32,5 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Photo photo;
-//нори ли ван ту ван
+
 }

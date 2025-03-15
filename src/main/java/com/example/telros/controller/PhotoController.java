@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/photo")
+@RequestMapping("/photos")
 public class PhotoController {
 
     private PhotoService photoService;

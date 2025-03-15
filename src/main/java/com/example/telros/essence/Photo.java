@@ -22,9 +22,8 @@ public class Photo {
     @Lob
     private byte[] photo;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id")
     private User user;
-//проверить есть ли связка
 
 }
