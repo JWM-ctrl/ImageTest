@@ -42,8 +42,12 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+
         // Преобразуем UserDTO в User
         User updatedUser = userMapper.userDTOToUser(userDTO);
+        if (updatedUser == null) {
+            throw new IllegalArgumentException("UserDTO cannot be mapped to User");
+        }
         //обновление полей
         existingUser.setLastName(updatedUser.getLastName());
         existingUser.setFirstName(updatedUser.getFirstName());
