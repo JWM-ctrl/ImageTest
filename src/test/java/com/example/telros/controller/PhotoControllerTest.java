@@ -1,6 +1,5 @@
-package com.example.telros.test;
+package com.example.telros.controller;
 
-import com.example.telros.controller.PhotoController;
 import com.example.telros.dto.PhotoDTO;
 import com.example.telros.service.PhotoService;
 import org.junit.jupiter.api.Test;

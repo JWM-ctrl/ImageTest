@@ -1,11 +1,10 @@
-package com.example.telros.test;
+package com.example.telros.service;
 
 
 import com.example.telros.dto.UserDTO;
 import com.example.telros.essence.User;
-import com.example.telros.maper.UserMapper;
+import com.example.telros.mapper.UserMapper;
 import com.example.telros.repository.UserRepository;
-import com.example.telros.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

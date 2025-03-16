@@ -31,6 +31,7 @@ public class PhotoController {
         photoService.createPhoto(photoDTO, photoId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     //изменение фотографии
     @PutMapping(value = "/{photoId}", consumes = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Void> updateImage(@RequestBody byte[] image, @PathVariable("photoId") Long photoId) {
@@ -39,6 +40,7 @@ public class PhotoController {
         photoService.updatePhoto(photoId, photoDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     //удаление
     @DeleteMapping("/{photoId}")
     public ResponseEntity<Void> deleteImage(@PathVariable("photoId") Long photoId) {

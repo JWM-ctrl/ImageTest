@@ -3,7 +3,7 @@ package com.example.telros.service;
 import com.example.telros.dto.UserDTO;
 import com.example.telros.essence.User;
 import com.example.telros.exception.ResourceNotFoundException;
-import com.example.telros.maper.UserMapper;
+import com.example.telros.mapper.UserMapper;
 import com.example.telros.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

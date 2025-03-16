@@ -1,6 +1,5 @@
-package com.example.telros.test;
+package com.example.telros.controller;
 
-import com.example.telros.controller.UserController;
 import com.example.telros.dto.UserDTO;
 import com.example.telros.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;

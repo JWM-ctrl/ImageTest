@@ -1,11 +1,10 @@
-package com.example.telros.test;
+package com.example.telros.service;
 
 
 import com.example.telros.dto.PhotoDTO;
 import com.example.telros.essence.Photo;
-import com.example.telros.maper.UserMapper;
+import com.example.telros.mapper.UserMapper;
 import com.example.telros.repository.PhotoRepository;
-import com.example.telros.service.PhotoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

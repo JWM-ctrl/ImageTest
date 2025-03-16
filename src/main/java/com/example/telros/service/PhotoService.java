@@ -4,7 +4,7 @@ import com.example.telros.dto.PhotoDTO;
 import com.example.telros.essence.Photo;
 import com.example.telros.essence.User;
 import com.example.telros.exception.ResourceNotFoundException;
-import com.example.telros.maper.UserMapper;
+import com.example.telros.mapper.UserMapper;
 import com.example.telros.repository.PhotoDeleteRepository;
 import com.example.telros.repository.PhotoRepository;
 import com.example.telros.repository.UserRepository;

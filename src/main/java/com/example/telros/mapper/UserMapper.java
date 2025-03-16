@@ -1,4 +1,4 @@
-package com.example.telros.maper;
+package com.example.telros.mapper;
 
 import com.example.telros.dto.PhotoDTO;
 import com.example.telros.dto.UserDTO;
