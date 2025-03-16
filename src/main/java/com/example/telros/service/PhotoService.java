@@ -2,17 +2,20 @@ package com.example.telros.service;
 
 import com.example.telros.dto.PhotoDTO;
 import com.example.telros.essence.Photo;
+import com.example.telros.essence.User;
 import com.example.telros.exception.ResourceNotFoundException;
 import com.example.telros.maper.UserMapper;
+import com.example.telros.repository.PhotoDeleteRepository;
 import com.example.telros.repository.PhotoRepository;
 import com.example.telros.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
 public class PhotoService {
+
+    private PhotoDeleteRepository PhotoDeleteRepository;
 
     private UserRepository userRepository;
 
@@ -30,14 +33,18 @@ public class PhotoService {
     //создаем фото
     public PhotoDTO createPhoto(PhotoDTO photoDTO, Long userId) {
         Photo photo = userMapper.photoDTOToPhoto(photoDTO);
-        photo.setUser(userRepository.findById(userId).orElseThrow(()
-                -> new ResourceNotFoundException("No photo found with userId " + userId))) ;
+        User verifiableUser = userRepository.findById(userId).orElseThrow(()
+                -> new ResourceNotFoundException("No photo found with userId " + userId));
+        if(verifiableUser.getPhoto() != null) {
+            throw new ResourceNotFoundException("The photo already exists " + userId);
+        }
+        photo.setUser(verifiableUser) ;
         photo = photoRepository.save(photo);
         return userMapper.photoToPhotoDTO(photo);
     }
 
     //логика обновления по id шнику с выбросом исключения,
-// в случае ошибки
+        // в случае ошибки
     public PhotoDTO updatePhoto(long id, PhotoDTO photoDTO) {
         Photo photo = photoRepository
                 .findById(id).orElseThrow(()
@@ -51,7 +58,7 @@ public class PhotoService {
     }
     //удаляем по id
     public void deletePhoto(long id) {
-        photoRepository.deleteById(id);
+        PhotoDeleteRepository.deleteById(id);
 
 
     }

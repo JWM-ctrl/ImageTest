@@ -23,7 +23,7 @@ public class Photo {
     private byte[] photo;
 
     @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private User user;
 
 }

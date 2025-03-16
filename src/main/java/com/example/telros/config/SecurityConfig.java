@@ -31,14 +31,14 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        // Создаем пользователя admin:admin
+        // Создаем пользователя admin:admin, выболнения требования к заданию
         UserDetails user = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin"))
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(user); // Храним пользователя в памяти
+        return new InMemoryUserDetailsManager(user); // Прихраниваем пользоватлея в памяти
     }
 
     @Bean

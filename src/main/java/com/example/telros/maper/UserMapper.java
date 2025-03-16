@@ -11,11 +11,11 @@ import org.mapstruct.*;
 public interface UserMapper {
 
 
-//    @Mapping(source = "photo", target = "photo")
+
     @Mapping(source = "birthDate", target = "dateOfBirth")
     UserDTO userToUserDTO(User user);
 
-    //@Mapping(source = "photo", ignore = true)
+
 
     User userDTOToUser(UserDTO userDTO);
 

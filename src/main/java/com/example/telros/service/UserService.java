@@ -6,7 +6,6 @@ import com.example.telros.exception.ResourceNotFoundException;
 import com.example.telros.maper.UserMapper;
 import com.example.telros.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-//нужны автовайред?
+
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
@@ -30,7 +29,6 @@ public class UserService {
         return userRepository.findById(id)
                 .map(userMapper::userToUserDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        //проверить будет ли работать именно форма терминалки orElseThrow(() или лучше оставить forEach()
     }
 
     public UserDTO createUser(UserDTO userDTO) {
@@ -40,14 +38,13 @@ public class UserService {
     }
 
     public UserDTO updateUser(Long id, UserDTO userDTO) {
-        // 1. Проверка есть ли пользователь
+        //  Проверка есть ли пользователь
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         // Преобразуем UserDTO в User
         User updatedUser = userMapper.userDTOToUser(userDTO);
         //обновление полей
-
         existingUser.setLastName(updatedUser.getLastName());
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setMiddleName(updatedUser.getMiddleName());
@@ -57,7 +54,6 @@ public class UserService {
 
         // Сохраняем обновленного пользователя в базе данных
         User newUser = userRepository.save(existingUser);
-        //изолировано возвращаем юзера
         return userMapper.userToUserDTO(newUser);
 
     }

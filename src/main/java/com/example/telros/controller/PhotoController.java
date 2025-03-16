@@ -1,18 +1,11 @@
 package com.example.telros.controller;
 
 import com.example.telros.dto.PhotoDTO;
-import com.example.telros.repository.PhotoRepository;
 import com.example.telros.service.PhotoService;
-import jakarta.persistence.Entity;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -27,36 +20,36 @@ public class PhotoController {
     public byte[] getImage(@PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = photoService.getPhotoById(photoId);
         //доп проверка на null
-        return photoDTO != null ? photoDTO.getPhoto() : new byte[0];//ResponseEntity.status(HttpStatus.CREATED).build()
+        return photoDTO != null ? photoDTO.getPhoto() : new byte[0];
     }
 
     // Загрузка фотографии пользователя
-    @PostMapping(value = "/{userId}", consumes = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Void> setImage(@RequestBody byte[] image, @PathVariable("userId") Long userId) {
+    @PostMapping(value = "/{photoId}", consumes = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<Void> setImage(@RequestBody byte[] image, @PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = new PhotoDTO();
         photoDTO.setPhoto(image);
-        photoService.createPhoto(photoDTO, userId);
+        photoService.createPhoto(photoDTO, photoId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-    @PutMapping(value = "/{userId}", consumes = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<Void> updateImage(@RequestBody byte[] image, @PathVariable("userId") Long userId) {
+    //изменение фотографии
+    @PutMapping(value = "/{photoId}", consumes = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<Void> updateImage(@RequestBody byte[] image, @PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = new PhotoDTO();
         photoDTO.setPhoto(image);
-        photoService.updatePhoto(userId, photoDTO);
+        photoService.updatePhoto(photoId, photoDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteImage(@PathVariable("userId") Long userId) {
-        photoService.deletePhoto(userId);
+    //удаление
+    @DeleteMapping("/{photoId}")
+    public ResponseEntity<Void> deleteImage(@PathVariable("photoId") Long photoId) {
+        photoService.deletePhoto(photoId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    //Возвращает метаданные о фотографии (например, ID и размер изображения) в формате JSON
-    @GetMapping(value = "/{userId}/info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PhotoDTO> getPhotoInfo(@PathVariable("userId") Long userId) {
-        PhotoDTO photoDTO = photoService.getPhotoById(userId);
+    //Возвращает метаданные о фотографии (например, ID и размер изображения) в формате JSON, сделано дополнительно
+    @GetMapping(value = "/{photoId}/info", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PhotoDTO> getPhotoInfo(@PathVariable("photoId") Long photoId) {
+        PhotoDTO photoDTO = photoService.getPhotoById(photoId);
         if (photoDTO != null) {
             return ResponseEntity.ok(photoDTO);
         } else {

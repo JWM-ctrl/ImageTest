@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-//добавить валидацию?
-//сделать класс DTO record? позволяет создать неизменяемый класс с final полями (мы не можем изменить поля после создания объекта), а также автоматически сгенерированными hashcode()&equals() + toString() + get() методами.
+
 @Getter
 @Setter
 @AllArgsConstructor
