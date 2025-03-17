@@ -65,7 +65,7 @@ public class PhotoControllerTest {
 
     @Test
     public void testDeleteImage() throws Exception {
-        Long userId = 1L;
+        long userId = 1L;
         doNothing().when(photoService).deletePhoto(userId);
 
         mockMvc = MockMvcBuilders.standaloneSetup(photoController).build();
