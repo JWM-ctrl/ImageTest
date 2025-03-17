@@ -35,7 +35,6 @@ public class PhotoServiceTest {
 
     @Test
     public void testGetPhotoById() {
-        // Подготовка данных
         Long userId = 1L;
         byte[] imageData = "fake-image-data".getBytes();
 
@@ -49,17 +48,12 @@ public class PhotoServiceTest {
 
         when(photoRepository.findById(userId)).thenReturn(Optional.of(photo));
         when(userMapper.photoToPhotoDTO(any(Photo.class))).thenReturn(photoDTO);
-
-        // Выполнение теста
         PhotoDTO result = photoService.getPhotoById(userId);
-
-        // Проверка результата
         assertEquals(imageData, result.getPhoto());
     }
 
     @Test
     public void testUpdatePhoto() {
-        // Подготовка данных
         Long userId = 1L;
         byte[] imageData = "fake-image-data".getBytes();
 
@@ -73,26 +67,15 @@ public class PhotoServiceTest {
         when(photoRepository.findById(userId)).thenReturn(Optional.of(photo));
         when(photoRepository.save(any(Photo.class))).thenReturn(photo);
         when(userMapper.photoToPhotoDTO(any(Photo.class))).thenReturn(photoDTO);
-
-        // Выполнение теста
         PhotoDTO result = photoService.updatePhoto(userId, photoDTO);
-
-        // Проверка результата
         assertEquals(imageData, result.getPhoto());
     }
 
     @Test
     public void testDeletePhoto() {
-        // Подготовка данных
         Long userId = 1L;
-
-        // Мокируем вызов репозитория
-        doNothing().when(photoDeleteRepository).deleteById(userId);//todo разобраться тот ли Id
-
-        // Выполнение теста
+        doNothing().when(photoDeleteRepository).deleteById(userId);
         photoService.deletePhoto(userId);
-
-        // Проверка, что метод был вызван
         verify(photoDeleteRepository, times(1)).deleteById(userId);
     }
 }

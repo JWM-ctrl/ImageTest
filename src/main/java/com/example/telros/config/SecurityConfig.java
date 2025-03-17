@@ -38,11 +38,11 @@ public class SecurityConfig {
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(user); // Прихраниваем пользоватлея в памяти
+        return new InMemoryUserDetailsManager(user);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Используем BCrypt для кодирования паролей
+        return new BCryptPasswordEncoder();
     }
 }

@@ -18,7 +18,7 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //создаем переменную для хранения больших объектов Large OBject
+
     @Lob
     private byte[] photo;
 

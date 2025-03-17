@@ -10,16 +10,11 @@ import org.mapstruct.*;
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-
-
     @Mapping(source = "birthDate", target = "dateOfBirth")
     UserDTO userToUserDTO(User user);
 
-
-
     User userDTOToUser(UserDTO userDTO);
 
-    //преобразование в обратную сторону
     PhotoDTO photoToPhotoDTO(Photo photo);
 
     @Mapping(target = "user", ignore = true)

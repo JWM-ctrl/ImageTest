@@ -30,19 +30,14 @@ public class PhotoControllerTest {
 
     @Test
     public void testGetImage() throws Exception {
-        // Подготовка данных
+
         byte[] imageData = "fake-image-data".getBytes();
         Long userId = 1L;
 
         PhotoDTO photoDTO = new PhotoDTO();
         photoDTO.setPhoto(imageData);
-
         when(photoService.getPhotoById(userId)).thenReturn(photoDTO);
-
-        // Настройка MockMvc
         mockMvc = MockMvcBuilders.standaloneSetup(photoController).build();
-
-        // Выполнение запроса и проверка результата
         mockMvc.perform(get("/photos/{userId}", userId)
                         .accept(MediaType.IMAGE_JPEG_VALUE))
                 .andExpect(status().isOk())
@@ -51,40 +46,29 @@ public class PhotoControllerTest {
 
     @Test
     public void testSetImage() throws Exception {
-        // Подготовка данных
+
         byte[] imageData = "fake-image-data".getBytes();
         Long userId = 1L;
 
         PhotoDTO photoDTO = new PhotoDTO();
         photoDTO.setPhoto(imageData);
 
-        // Мокируем вызов сервиса
-        when(photoService.createPhoto( any(PhotoDTO.class),eq(userId))).thenReturn(photoDTO);
-
-        // Настройка MockMvc
+        when(photoService.createPhoto(any(PhotoDTO.class), eq(userId))).thenReturn(photoDTO);
         mockMvc = MockMvcBuilders.standaloneSetup(photoController).build();
 
-        // Выполнение запроса и проверка результата
         mockMvc.perform(post("/photos/{userId}", userId)
                         .contentType(MediaType.IMAGE_JPEG_VALUE)
                         .content(imageData))
                 .andExpect(status().isCreated());
-        // Проверка, что метод был вызван
-        verify(photoService, times(1)).createPhoto( any(PhotoDTO.class),eq(userId));
+        verify(photoService, times(1)).createPhoto(any(PhotoDTO.class), eq(userId));
     }
 
     @Test
     public void testDeleteImage() throws Exception {
-        // Подготовка данных
         Long userId = 1L;
-
-        // Мокируем вызов сервиса
         doNothing().when(photoService).deletePhoto(userId);
 
-        // Настройка MockMvc
         mockMvc = MockMvcBuilders.standaloneSetup(photoController).build();
-
-        // Выполнение запроса и проверка результата
         mockMvc.perform(delete("/photos/{userId}", userId))
                 .andExpect(status().isNoContent());
     }

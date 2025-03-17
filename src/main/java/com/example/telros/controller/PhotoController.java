@@ -15,15 +15,14 @@ public class PhotoController {
 
     private PhotoService photoService;
 
-    // Получение фотографии пользователя по ID
+
     @GetMapping(value = "/{photoId}", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(@PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = photoService.getPhotoById(photoId);
-        //доп проверка на null
         return photoDTO != null ? photoDTO.getPhoto() : new byte[0];
     }
 
-    // Загрузка фотографии пользователя
+
     @PostMapping(value = "/{photoId}", consumes = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Void> setImage(@RequestBody byte[] image, @PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = new PhotoDTO();
@@ -32,7 +31,7 @@ public class PhotoController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    //изменение фотографии
+
     @PutMapping(value = "/{photoId}", consumes = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<Void> updateImage(@RequestBody byte[] image, @PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = new PhotoDTO();
@@ -41,14 +40,14 @@ public class PhotoController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    //удаление
+
     @DeleteMapping("/{photoId}")
     public ResponseEntity<Void> deleteImage(@PathVariable("photoId") Long photoId) {
         photoService.deletePhoto(photoId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    //Возвращает метаданные о фотографии (например, ID и размер изображения) в формате JSON, сделано дополнительно
+
     @GetMapping(value = "/{photoId}/info", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PhotoDTO> getPhotoInfo(@PathVariable("photoId") Long photoId) {
         PhotoDTO photoDTO = photoService.getPhotoById(photoId);
